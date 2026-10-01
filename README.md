@@ -1,4 +1,6 @@
-Week 2/ B1
+Week 2
+B1
+
 Run server 
 
 <img width="517" height="192" alt="image" src="https://github.com/user-attachments/assets/ee779be9-f148-452e-8a76-e91201dde76e" />
@@ -11,7 +13,8 @@ Tạo cuốn
 
 <img width="431" height="157" alt="image" src="https://github.com/user-attachments/assets/ac7afd9e-3f61-4be4-a16b-da32a206a93d" />
 
-Week 2/ B2
+B2
+
 Run server
 
 <img width="360" height="166" alt="image" src="https://github.com/user-attachments/assets/0552fd9c-0c57-40a6-a751-20f31ce0ec7b" />
@@ -20,7 +23,8 @@ PUT PATCH DELETE
 
 <img width="604" height="196" alt="image" src="https://github.com/user-attachments/assets/265be934-f703-45a9-853d-98d4eec1f330" />
 
-Week 2/ B3
+B3
+
 Phân trang
 
 <img width="351" height="387" alt="image" src="https://github.com/user-attachments/assets/47cec5d1-abbb-4651-a3e9-c6b4acf91c4c" />

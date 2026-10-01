@@ -19,3 +19,17 @@ Run server
 PUT PATCH DELETE
 
 <img width="604" height="196" alt="image" src="https://github.com/user-attachments/assets/265be934-f703-45a9-853d-98d4eec1f330" />
+
+Week 2/ B3
+Phân trang
+
+<img width="351" height="387" alt="image" src="https://github.com/user-attachments/assets/47cec5d1-abbb-4651-a3e9-c6b4acf91c4c" />
+
+Lọc
+
+<img width="351" height="398" alt="image" src="https://github.com/user-attachments/assets/a9ba44a9-1213-4a05-acde-ef67783b1e27" />
+
+Tìm kiếm
+
+<img width="349" height="386" alt="image" src="https://github.com/user-attachments/assets/92610573-8cc8-493a-b193-34704a6347cd" />
+

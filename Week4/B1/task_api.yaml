@@ -1,0 +1,178 @@
+openapi: 3.0.3
+info: 
+  title: Tasks API
+  version: 1.0.0
+  description: Quản lý task nội bộ
+servers: 
+  - url: 'http://localhost:5000/v1'
+security: 
+  - bearerAuth: []
+tags: 
+  - name: tasks
+paths:
+  /tasks:
+    get:
+      tags: [tasks]
+      operationId: listTasks
+      parameters:
+        - $ref: '#/components/parameters/PageLimit'
+        - $ref: '#/components/parameters/StatusFilter'
+      responses:
+        '200': 
+          $ref: '#/components/responses/TaskPage'
+        '401': 
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      tags: [tasks]
+      operationId: createTask
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/CreateTaskInput'
+      responses:
+        '201': 
+          $ref: '#/components/responses/TaskResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422': 
+          $ref: '#/components/responses/ValidationError'
+
+  /tasks/{id}:
+    get:
+      tags: [tasks]
+      operationId: getTaskById
+      parameters:
+        - $ref: '#/components/parameters/TaskId'
+      responses:
+        '200': 
+          $ref: '#/components/responses/TaskResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404': 
+          $ref: '#/components/responses/NotFound'
+    patch:
+      tags: [tasks]
+      operationId: updateTask
+      parameters:
+        - $ref: '#/components/parameters/TaskId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTaskInput'
+      responses:
+        '200': 
+          $ref: '#/components/responses/TaskResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404': 
+          $ref: '#/components/responses/NotFound'
+        '422': 
+          $ref: '#/components/responses/ValidationError'
+    delete:
+      tags: [tasks]
+      operationId: deleteTask
+      parameters:
+        - $ref: '#/components/parameters/TaskId'
+      responses:
+        '204': 
+          description: Đã xóa thành công (No Content)
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404': 
+          $ref: '#/components/responses/NotFound'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    PageLimit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+    StatusFilter:
+      name: status
+      in: query
+      schema:
+        type: string
+    TaskId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        status:
+          type: string
+        priority:
+          type: string
+        dueDate:
+          type: string
+          format: date-time
+        assigneeId:
+          type: string
+    CreateTaskInput:
+      type: object
+      required: [title]
+      properties:
+        title:
+          type: string
+        status:
+          type: string
+        priority:
+          type: string
+        dueDate:
+          type: string
+          format: date-time
+        assigneeId:
+          type: string
+    UpdateTaskInput:
+      type: object
+      properties:
+        title:
+          type: string
+        status:
+          type: string
+        priority:
+          type: string
+        dueDate:
+          type: string
+          format: date-time
+        assigneeId:
+          type: string
+  responses:
+    TaskResponse:
+      description: Trả về một đối tượng Task
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Task'
+    TaskPage:
+      description: Trả về danh sách Task
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Task'
+    Unauthorized:
+      description: Lỗi xác thực (Unauthorized)
+    ValidationError:
+      description: Dữ liệu đầu vào không hợp lệ (Validation Error)
+    NotFound:
+      description: Không tìm thấy tài nguyên (Not Found)

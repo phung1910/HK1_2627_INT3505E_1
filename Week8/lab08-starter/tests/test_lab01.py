@@ -66,14 +66,8 @@ def test_deleted_book_is_gone(client):
 
 # ---------- Bước 2: Bonus ----------
 
-def test_book_response_schema_rejects_unknown_field(client):
-    """BONUS. Validate response theo Book JSON Schema; field lạ phải bị chặn.
-
-    Lưu ý: openapi.yaml cố ý khai báo year: type: string (lỗi dành cho Lab 2,
-    xem README). Để không phụ thuộc vào việc sửa lỗi đó, test này dùng một bản
-    sao schema đã sửa field year thành integer, phản ánh đúng hành vi thật của
-    app.py/models.py hiện tại.
-    """
+def test_response_extra_field_blocked(client):
+    """BONUS. Validate response theo Book JSON Schema; field lạ phải bị chặn."""
     created = client.post(
         "/books",
         json={
@@ -86,10 +80,9 @@ def test_book_response_schema_rejects_unknown_field(client):
     assert created.status_code == 201
     book = created.get_json()
 
-    schema = copy.deepcopy(get_book_schema())
-    schema["properties"]["year"] = {"type": "integer", "nullable": True}
+    schema = get_book_schema()
 
-    # Response hợp lệ phải khớp schema.
+    # Response hợp lệ phải khớp schema từ openapi.yaml.
     validate(book, schema)
 
     # Thêm field lạ vào một *bản sao* -> additionalProperties: false phải chặn.

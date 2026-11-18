@@ -1,0 +1,22 @@
+extends: ["spectral:oas"]
+rules:
+  response-200-schema-has-properties:
+    description: "Response 200 JSON object schema must define more than 0 properties."
+    severity: error
+    given:
+      - "$.paths[*][*].responses['200'].content['application/json'].schema[?(@.type == 'object')]"
+      - "$.paths[*][*].responses['200'].content['application/json'].schema.items[?(@.type == 'object')]"
+    then:
+      field: properties
+      function: length
+      functionOptions:
+        min: 1
+
+  no-204-response-content:
+    description: "HTTP 204 No Content responses must not declare a response body (content)."
+    severity: error
+    given: "$.paths[*][*].responses['204']"
+    then:
+      field: content
+      function: falsy
+
